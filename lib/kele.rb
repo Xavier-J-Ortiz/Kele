@@ -32,19 +32,34 @@ class Kele
   def get_mentor_availability(mentor_id)
     @body = {body: {id: mentor_id}}
     response = self.class.get('https://www.bloc.io/api/v1/mentors/' + mentor_id.to_s + '/student_availability', @headers)
-
     mentor_schedule = []
-
     response.parsed_response.each do |entry|
       if entry['booked'] == true
         start = entry['starts_at']
         finish = entry['ends_at']
         mentor_schedule.push(starts_at: finish, ends_at: start)
       end
-
     end
-
     return mentor_schedule
+  end
+
+  def get_checkpoint(checkpoint_id)
+    # checkpoint number that worked for me was 2265
+    id = checkpoint_id
+
+    response = self.class.get('https://www.bloc.io/api/v1/checkpoints/' + id.to_s, @headers)
+
+    @checkpoint = response.parsed_response
 
   end
+
+  def get_roadmap(roadmaps_id)
+    # roadmap number that works for this is 38
+    id = roadmaps_id
+
+    response = self.class.get('https://www.bloc.io/api/v1/roadmaps/' + id.to_s, @headers)
+
+    @roadmap = response.parsed_response
+  end
+
 end
