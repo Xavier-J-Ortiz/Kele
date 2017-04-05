@@ -10,7 +10,7 @@ class Kele
   end
 
   def get_auth_token
-    puts self.class.post('https://www.bloc.io/api/v1/sessions', query: @options)
+    @stored = self.class.post('https://www.bloc.io/api/v1/sessions', query: @options)
   end
 
 end
