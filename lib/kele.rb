@@ -19,15 +19,20 @@ class Kele
       puts "Rescued #{e.inspect}"
     end
 
-    @auth_token = stored.parsed_response['auth_token']
+    auth_token = stored.parsed_response['auth_token']
+    @headers = {headers: {authorization: auth_token, content_type: 'application/json'}}
 
   end
 
   def get_me
+    response = self.class.get('https://www.bloc.io/api/v1/users/me', @headers)
+    @ruby_response = response.parsed_response
+  end
 
-    response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { authorization: @auth_token })
+  def get_mentor_availability(mentor_id)
+    @body = {body: {id: mentor_id}}
+    response = self.class.get('https://www.bloc.io/api/v1/mentors/' + mentor_id.to_s + '/student_availability', @headers)
 
-    ruby_response = response.parsed_response
-
+    @mentor_schedule = response.parsed_response
   end
 end
