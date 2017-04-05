@@ -33,6 +33,18 @@ class Kele
     @body = {body: {id: mentor_id}}
     response = self.class.get('https://www.bloc.io/api/v1/mentors/' + mentor_id.to_s + '/student_availability', @headers)
 
-    @mentor_schedule = response.parsed_response
+    mentor_schedule = []
+
+    response.parsed_response.each do |entry|
+      if entry['booked'] == true
+        start = entry['starts_at']
+        finish = entry['ends_at']
+        mentor_schedule.push(starts_at: finish, ends_at: start)
+      end
+
+    end
+
+    return mentor_schedule
+
   end
 end
