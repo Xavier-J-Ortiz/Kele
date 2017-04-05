@@ -1,6 +1,8 @@
 require 'httparty'
+require 'json'
 class Kele
   include HTTParty
+  include JSON
 
   # @headers = { content_type: 'application/json' }
 
@@ -21,9 +23,11 @@ class Kele
 
   end
 
-def get_me
-  response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { authorization: @auth_token })
-end
+  def get_me
 
+    response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { authorization: @auth_token })
 
+    ruby_response = response.parsed_response
+
+  end
 end
