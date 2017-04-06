@@ -1,4 +1,4 @@
-module roadmap
+module Roadmap
 
   def get_checkpoint(checkpoint_id)
     # checkpoint number that worked for me was 2265

@@ -1,6 +1,5 @@
 require 'httparty'
 require 'json'
-require 'roadmap'
 class Kele
   include HTTParty
   include JSON
@@ -31,7 +30,6 @@ class Kele
   end
 
   def get_mentor_availability(mentor_id)
-    @body = {body: {id: mentor_id}}
     response = self.class.get('https://www.bloc.io/api/v1/mentors/' + mentor_id.to_s + '/student_availability', @headers)
     mentor_schedule = []
     response.parsed_response.each do |entry|
@@ -61,6 +59,17 @@ class Kele
     response = self.class.get('https://www.bloc.io/api/v1/roadmaps/' + id.to_s, @headers)
 
     @roadmap = response.parsed_response
+  end
+
+  def get_messages(page_no)
+
+    params = @headers
+    params["body"] = {page: page_no}
+
+
+    response = self.class.get('https://www.bloc.io/api/v1/message_threads' , params)
+
+
   end
 
 end
