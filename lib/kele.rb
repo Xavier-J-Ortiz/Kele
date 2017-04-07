@@ -75,13 +75,13 @@ class Kele
     params = @headers.clone
     params[:body] = {
         'sender': "cuchumino@gmail.com",
-        'recipient_id': 278877,
+        'recipient_id': 523730,
+        'token': "66d124d3-79bb-40dd-8311-66f5419fb0ff",
         'subject': "Breakfast is important",
-        'stripped-text': "Arguably the most important meal of the day. Never skip it."
-        # 'token': "66d124d3-79bb-40dd-8311-66f5419fb0ff"
+        'stripped-text': "Arguably the most important meal of the day. Never skip it. I highly recommend it."
     }
 
-    # puts params
+    puts params
 
     store = self.class.post('https://www.bloc.io/api/v1/messages', params)
 
