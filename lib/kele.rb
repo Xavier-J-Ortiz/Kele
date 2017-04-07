@@ -94,4 +94,28 @@ class Kele
     puts store
   end
 
+  def create_submission
+
+    params = @headers.clone
+
+    params['body'] = {
+        :'assignment_branch' => "assignment-22-iterative-search",
+        :'assignment_commit_link' => 'https://github.com/me/repo/commit/5',
+        :'checkpoint_id' => 2162,
+        :'comment' => "this is my work",
+        :'enrollment_id' => 23302
+}
+
+    store = self.class.post('https://www.bloc.io/api/v1/checkpoint_submissions', params)
+
+    begin
+      store.inspect
+    rescue => e
+      puts "Rescued #{e.inspect}"
+    end
+
+    puts store
+
+  end
+
 end
