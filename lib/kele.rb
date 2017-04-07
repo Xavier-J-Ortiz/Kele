@@ -99,11 +99,11 @@ class Kele
     params = @headers.clone
 
     params['body'] = {
-        :'assignment_branch' => "assignment-22-iterative-search",
-        :'assignment_commit_link' => 'https://github.com/me/repo/commit/5',
-        :'checkpoint_id' => 2162,
-        :'comment' => "this is my work",
-        :'enrollment_id' => 23302
+        assignment_branch: "checkpoint-7-checkpoint-submit",
+        assignment_commit_link: "https://github.com/Xavier-J-Ortiz/Kele/pull/6",
+        checkpoint_id: 2162,
+        comment: "this is my better console work",
+        enrollment_id: 23302
 }
 
     store = self.class.post('https://www.bloc.io/api/v1/checkpoint_submissions', params)
