@@ -70,15 +70,17 @@ class Kele
 
   end
 
-  def create_message
+  def create_message(mentor_id, convo_token, subject_matter, message)
 
     params = @headers.clone
     params.merge!({:body => {
-        "sender" => "cuchumino@gmail.com",
-        "recipient_id" => 523730,
-        "token" => "66d124d3-79bb-40dd-8311-66f5419fb0ff",
-        "subject" => "Breakfast is important",
-        "stripped-text" => "Arguably the most important meal of the day. Never skip it. I highly recommend it. however, if you're stuck on console, you better rip yourself off and get some nutrition."
+        # "recipient_id" => 523730,
+        # "token" => "66d124d3-79bb-40dd-8311-66f5419fb0ff",
+        "sender" => @options[:email],
+        "recipient_id" => mentor_id,
+        "token" => convo_token,
+        "subject" => subject_matter,
+        "stripped-text" => message
     }.to_json })
 
     puts params
@@ -94,18 +96,23 @@ class Kele
     puts store
   end
 
-  def create_submission
-
-
+  def create_submission(checkpoint_branch, assignment_link, checkpoint_internal_id, the_comment, your_enrollment_id)
 
     params = @headers.clone
-    params.merge!({:body => {assignment_branch: 'checkpoint-7-checkpoint-submit',
-                             assignment_commit_link: 'https://github.com/Xavier-J-Ortiz/Kele/pull/6',
-                             checkpoint_id: 2273,
-                             comment: 'this is my better console work',
-                             enrollment_id: 23302}.to_json})
+    params.merge!({:body => {
+        # assignment_branch: 'checkpoint-7-checkpoint-submit',
+        # assignment_commit_link: 'https://github.com/Xavier-J-Ortiz/Kele/pull/6',
+        # checkpoint_id: 2273,
+        # comment: 'this is my better console work',
+        # enrollment_id: 23302
+        assignment_branch: checkpoint_branch,
+        assignment_commit_link: assignment_link,
+        checkpoint_id: checkpoint_internal_id,
+        comment: the_comment,
+        enrollment_id: your_enrollment_id
+    }.to_json})
 
-    puts params
+    # puts params
     store = self.class.post('https://www.bloc.io/api/v1/checkpoint_submissions', params)
 
     begin
