@@ -20,7 +20,7 @@ class Kele
     end
 
     auth_token = stored.parsed_response['auth_token']
-    @headers = {headers: {authorization: auth_token, content_type: 'application/json'}}
+    @headers = {headers: {'authorization' => auth_token, 'content_type' => 'application/json'}}
 
   end
 
@@ -73,13 +73,13 @@ class Kele
   def create_message
 
     params = @headers.clone
-    params[:body] = {
-        'sender': "cuchumino@gmail.com",
-        'recipient_id': 523730,
-        'token': "66d124d3-79bb-40dd-8311-66f5419fb0ff",
-        'subject': "Breakfast is important",
-        'stripped-text': "Arguably the most important meal of the day. Never skip it. I highly recommend it."
-    }
+    params.merge!({:body => {
+        "sender" => "cuchumino@gmail.com",
+        "recipient_id" => 523730,
+        "token" => "66d124d3-79bb-40dd-8311-66f5419fb0ff",
+        "subject" => "Breakfast is important",
+        "stripped-text" => "Arguably the most important meal of the day. Never skip it. I highly recommend it. however, if you're stuck on console, you better rip yourself off and get some nutrition."
+    }.to_json })
 
     puts params
 
@@ -96,16 +96,16 @@ class Kele
 
   def create_submission
 
+
+
     params = @headers.clone
+    params.merge!({:body => {assignment_branch: 'checkpoint-7-checkpoint-submit',
+                             assignment_commit_link: 'https://github.com/Xavier-J-Ortiz/Kele/pull/6',
+                             checkpoint_id: 2273,
+                             comment: 'this is my better console work',
+                             enrollment_id: 23302}.to_json})
 
-    params['body'] = {
-        assignment_branch: "checkpoint-7-checkpoint-submit",
-        assignment_commit_link: "https://github.com/Xavier-J-Ortiz/Kele/pull/6",
-        checkpoint_id: 2162,
-        comment: "this is my better console work",
-        enrollment_id: 23302
-}
-
+    puts params
     store = self.class.post('https://www.bloc.io/api/v1/checkpoint_submissions', params)
 
     begin
@@ -114,7 +114,7 @@ class Kele
       puts "Rescued #{e.inspect}"
     end
 
-    puts store
+    # puts store
 
   end
 
